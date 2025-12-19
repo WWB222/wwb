@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Igrica</title>
+    <style>
+        body {
+            margin: 0px;
+            font-family: Arial;
+            background-color: #5E6A62;
+            background-image: url('pozadina/make-4-pixel-art-tiles-for-your-videogame.png');
+            background-repeat: repeat;
+            background-attachment: fixed;
+        }
+
+        header {
+            background-color: #0F2A23;
+            color: #D4A645;
+            padding: 10px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+        }
+
+        footer {
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #0F2A23;
+            position: fixed;
+            text-align: center;
+            height: 4%;
+            color: #D4A645;
+            padding-top: 10px;
+            font-size: 14px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            cursor: pointer;
+            padding: 10px 15px;
+            margin-left: 40px;
+            border-radius: 5%;
+        }
+
+            nav li:hover {
+                background-color: #1C4A3C;
+            }
+
+        h2 {
+            text-align: center;
+            color: #CBB77A;
+            font-size: 32px;
+            text-transform: uppercase;
+            margin-top: 60px;
+        }
+
+        .section {
+            max-width: 900px;
+            margin: auto;
+            text-align: center;
+            color: #ddd;
+            font-size: 20px;
+            padding-bottom: 40px;
+        }
+
+        .box {
+            background-color: rgba(15,42,35,0.8);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        #instaliraj1 {
+
+            text-align: center;
+            padding: 30px;
+        }
+
+        button {
+            padding: 18px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+        }
+
+        #instalirajweb {
+            background-color: orange;
+            color: white;
+            margin-right: 15px;
+        }
+
+        #instalirajsteam {
+            background-color: #141c34;
+            color: white;
+            margin-left: 15px;
+        }
+
+        #play{
+            margin-left:1100px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li>LOGO</li>
+                <li id="play">Play Now</li>
+                <li>Feature</li>
+                <li>Usage</li>
+                <li>FAQ</li>
+            </ul>
+        </nav>
+    </header>
+
+    <h2>Play Dungeon...</h2>
+    <div id="instaliraj1">
+        <button id="instalirajweb">Get started on web</button>
+        <button id="instalirajsteam">Download on Steam</button>
+    </div>
+
+    <h2>Key Features of Dungeon</h2>
+    <div class="section">
+        <p>Some things you need to know before entering the dungeon.</p>
+
+        <div class="box">
+            <b>Skill-Based Gameplay</b>
+            <p>Survival depends on player skill. Learning enemy patterns, trap behavior, and room mechanics is essential to progress deeper into the dungeon.</p>
+        </div>
+
+        <div class="box">
+            <b>Procedurally Generated Levels</b>
+            <p>Every run is different. Rooms, enemies, and rewards are randomly generated, ensuring a unique experience every time you play.</p>
+        </div>
+
+        <div class="box">
+            <b>Dark Fantasy Atmosphere</b>
+            <p>The dungeon is filled with mystery, danger, and ancient secrets. Visuals and sound design create a tense and immersive experience.</p>
+        </div>
+    </div>
+
+    <h2>How to Play Dungeon</h2>
+    <div class="section">
+        <div class="box">
+            <p><b>1.</b> Enter the dungeon and explore rooms carefully.</p>
+            <p><b>2.</b> Defeat enemies using timing, positioning, and strategy.</p>
+            <p><b>3.</b> Avoid traps and environmental hazards.</p>
+            <p><b>4.</b> Collect loot, upgrades, and artifacts.</p>
+            <p><b>5.</b> Survive as long as possible and reach deeper levels.</p>
+        </div>
+    </div>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="section">
+        <div class="box">
+            <b>Is Dungeon free to play?</b>
+            <p>Yes, the web version is free. Additional content may be available in the Steam version.</p>
+        </div>
+
+        <div class="box">
+            <b>Is the game multiplayer?</b>
+            <p>No, Dungeon is a single-player experience focused on skill and survival.</p>
+        </div>
+
+        <div class="box">
+            <b>Does the game save progress?</b>
+            <p>Each run is a new challenge, but unlocked upgrades remain available between runs.</p>
+        </div>
+    </div>
+
+    <footer>
+        © 2025 Dungeon... All rights reserved. | Made by WWB Team | Contact: wwb.team.a2@gmail.com
+    </footer>
+
+</body>
+</html>
