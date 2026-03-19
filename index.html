@@ -3,380 +3,814 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Temple of the Green Sage</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="style.css" rel="stylesheet" />
-</head>
-<style>
+    <title>Temple of The Green Sage</title>
+    <meta name="description" content="Frog Wizard Arena – beskonačna arena u kojoj preživljavaš talase neprijatelja kao žaba čarobnjak.">
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+:root {
+    scroll-padding-top: 90px;
+}
 
 html {
     scroll-behavior: smooth;
 }
 
-/* Green fantasy background */
-.bg-pattern {
-    background-image: radial-gradient(circle at 20% 20%, rgba(16,185,129,.18), transparent 30%), radial-gradient(circle at 80% 10%, rgba(34,197,94,.16), transparent 35%), radial-gradient(circle at 10% 80%, rgba(110,231,183,.16), transparent 35%), radial-gradient(circle at 90% 70%, rgba(52,211,153,.16), transparent 35%);
+body {
+    background: #020617;
+    color: #e5e7eb;
+    background-image: radial-gradient(circle at 20% 20%, rgba(16,185,129,.2), transparent 30%), radial-gradient(circle at 80% 10%, rgba(34,197,94,.2), transparent 35%), radial-gradient(circle at 10% 80%, rgba(110,231,183,.2), transparent 35%);
 }
 
-/* Reveal animation */
+/* NAV */
+.navbar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background: rgba(2,6,23,0.86);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(16,185,129,.3);
+    z-index: 100;
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: auto;
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* levo/desno */
+    gap: 16px;
+}
+
+.logo-text {
+    font-weight: bold;
+    color: #34d399;
+    letter-spacing: 0.3px;
+    font-size: 18px;
+}
+
+/* NAV LINKS */
+.nav-links {
+    display: flex;
+    gap: 26px;
+    align-items: center;
+}
+
+    .nav-links a {
+        color: #e5e7eb;
+        text-decoration: none;
+        transition: color .15s ease;
+        font-size: 15px;
+    }
+
+        .nav-links a:hover {
+            color: #34d399;
+        }
+
+/* BURGER */
+.burger {
+    display: none;
+    width: 46px;
+    height: 42px;
+    border: 1px solid rgba(16,185,129,.35);
+    background: rgba(2,6,23,0.6);
+    border-radius: 12px;
+    cursor: pointer;
+    padding: 10px 11px;
+}
+
+    .burger span {
+        display: block;
+        height: 2px;
+        background: #e5e7eb;
+        border-radius: 2px;
+        margin: 5px 0;
+        transition: transform .2s ease, opacity .2s ease;
+    }
+
+    .burger.open span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    .burger.open span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .burger.open span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+/* HERO (SREDJEN spacing + centar kao na slici) */
+.hero {
+    padding: 120px 24px 52px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.hero-inner {
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 64px;
+    margin-bottom: 12px;
+    line-height: 1.05;
+}
+
+.hero p {
+    color: #9ca3af;
+    margin-bottom: 18px;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 16px; /* manje praznog ispod dugmica */
+}
+
+/* BADGES */
+.hero-badges {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.badge {
+    border: 1px solid rgba(16,185,129,.35);
+    background: rgba(2,6,23,.55);
+    padding: 8px 12px;
+    border-radius: 999px;
+    color: #cbd5e1;
+    font-size: 13px;
+    backdrop-filter: blur(6px);
+}
+
+
+/* BUTTONS */
+.btn {
+    padding: 12px 24px;
+    border-radius: 12px;
+    background: #34d399;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    box-shadow: 0 10px 30px rgba(16,185,129,.15);
+}
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 40px rgba(16,185,129,.25);
+    }
+
+    .btn.outline {
+        background: transparent;
+        border: 1px solid #34d399;
+        color: #34d399;
+        box-shadow: none;
+    }
+
+        .btn.outline:hover {
+            background: rgba(52,211,153,.08);
+        }
+
+        /* malo mekši outline za "Igraj u browseru" */
+        .btn.outline.soft {
+            border-color: rgba(52,211,153,.55);
+        }
+
+/* SECTIONS */
+.section {
+    max-width: 1200px;
+    margin: auto;
+    padding: 86px 24px;
+}
+
+    .section h2 {
+        text-align: center;
+        font-size: 40px;
+        margin-bottom: 48px;
+    }
+
+/* FULL-WIDTH WRAPPER SECTION */
+.section-wrap {
+    width: 100%;
+    padding: 86px 0;
+}
+
+    .section-wrap.dark {
+        background: rgba(15,23,42,0.5);
+    }
+
+    .section-wrap .section {
+        padding: 0 24px;
+    }
+
+/* LAYOUT */
+.two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+}
+
+.text-block p {
+    margin-bottom: 12px;
+    color: #cbd5e1;
+    line-height: 1.55;
+}
+
+.grid, .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+}
+
+/* CARDS */
+.card {
+    background: rgba(2,6,23,0.7);
+    border: 1px solid rgba(16,185,129,.3);
+    padding: 24px;
+    border-radius: 16px;
+    backdrop-filter: blur(6px);
+    transition: transform .2s ease, border-color .2s ease;
+}
+
+    .card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(52,211,153,.6);
+    }
+
+    .card h3 {
+        margin-bottom: 12px;
+    }
+
+    .card ul {
+        margin-left: 18px;
+    }
+
+    .card li {
+        margin: 8px 0;
+        color: #cbd5e1;
+    }
+
+/* ROADMAP */
+.roadmap {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+}
+
+.phase {
+    background: rgba(2,6,23,0.72);
+    border: 1px solid rgba(16,185,129,.28);
+    border-radius: 16px;
+    padding: 22px;
+    backdrop-filter: blur(6px);
+    transition: transform .2s ease, border-color .2s ease;
+}
+
+    .phase:hover {
+        transform: translateY(-2px);
+        border-color: rgba(52,211,153,.55);
+    }
+
+.phase-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.phase-tag {
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(16,185,129,.35);
+    background: rgba(2,6,23,.45);
+    color: #d1fae5;
+}
+
+.phase-date {
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+.phase h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.phase ul {
+    margin-left: 18px;
+}
+
+.phase li {
+    margin: 7px 0;
+    color: #cbd5e1;
+}
+
+.phase.done .phase-tag {
+    border-color: rgba(34,197,94,.55);
+    color: #bbf7d0;
+}
+
+.phase.wip .phase-tag {
+    border-color: rgba(16,185,129,.55);
+    color: #d1fae5;
+}
+
+.phase.plan .phase-tag {
+    border-color: rgba(59,130,246,.55);
+    color: #bfdbfe;
+}
+
+/* PLAY SECTION */
+.play-card {
+    background: rgba(2,6,23,0.72);
+    border: 1px solid rgba(16,185,129,.28);
+    border-radius: 16px;
+    padding: 22px;
+    backdrop-filter: blur(6px);
+    display: grid;
+    gap: 16px;
+}
+
+    .play-card h3 {
+        margin-bottom: 6px;
+    }
+
+    .play-card p {
+        color: #cbd5e1;
+        line-height: 1.55;
+    }
+
+.play-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* FAQ */
+.faq {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* TEAM */
+.team-about {
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto 60px;
+}
+
+    .team-about img {
+        width: 200px;
+        margin-bottom: 18px;
+    }
+
+    .team-about p {
+        color: #cbd5e1;
+        line-height: 1.55;
+    }
+
+.member {
+    background: rgba(2,6,23,0.7);
+    border: 1px solid rgba(16,185,129,.3);
+    padding: 20px;
+    border-radius: 16px;
+    text-align: center;
+    backdrop-filter: blur(6px);
+    transition: transform .2s ease, border-color .2s ease;
+}
+
+    .member:hover {
+        transform: translateY(-2px);
+        border-color: rgba(52,211,153,.6);
+    }
+
+    .member span {
+        color: #9ca3af;
+        font-size: 14px;
+    }
+
+    /* ✅ CENTRIRANJE POSLEDNJE KARTICE (Vukašin) */
+    .member.center {
+        grid-column: 1 / -1; /* zauzme ceo red */
+        max-width: 320px; /* da ne bude preširoko */
+        justify-self: center; /* centar */
+    }
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 24px;
+    border-top: 1px solid rgba(16,185,129,.3);
+    color: #9ca3af;
+}
+
+/* REVEAL */
 .reveal {
     opacity: 0;
-    transform: translateY(20px) scale(0.95);
-    transition: all .8s ease;
+    transform: translateY(20px);
+    transition: 0.8s;
 }
 
     .reveal.show {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateY(0);
     }
 
-/* Promenjene boje za Feature i Team sekcije */
-.bg-dark {
-    background-color: #0f172a;
-}
-/* tamnije plavo-zelena */
-.text-light {
-    color: #22d3ee;
-}
-/* svetlija plavo-tirkizna */
-.text-teal {
-    color: #14b8a6;
-}
-/* svetlo-teal */
-.border-teal {
-    border-color: rgba(20,184,166,0.3);
-}
-
-/* Hover animacije kartica */
-.card-hover {
-    transition: all 0.3s ease;
-}
-
-    .card-hover:hover {
-        transform: translateY(-10px) scale(1.03);
-        box-shadow: 0 15px 25px rgba(0,0,0,0.3);
+/* RESPONSIVE */
+@media (max-width: 980px) {
+    .hero h1 {
+        font-size: 48px;
     }
 
-/* Hero sekcija - paralaks pozadina */
-#home {
-    background-image: radial-gradient(circle at 20% 20%, rgba(16,185,129,.15), transparent 30%), radial-gradient(circle at 80% 10%, rgba(34,197,94,.12), transparent 35%);
-    background-attachment: fixed;
-    background-size: cover;
+    .two-col {
+        grid-template-columns: 1fr;
+    }
 }
-</style>
-<body class="bg-zinc-950 text-zinc-100 bg-pattern">
+
+@media (max-width: 760px) {
+    .burger {
+        display: block;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 76px;
+        left: 12px;
+        right: 12px;
+        display: none;
+        flex-direction: column;
+        gap: 12px;
+        padding: 14px;
+        border-radius: 16px;
+        border: 1px solid rgba(16,185,129,.3);
+        background: rgba(2,6,23,0.92);
+        backdrop-filter: blur(10px);
+    }
+
+        .nav-links.open {
+            display: flex;
+        }
+
+   
+
+        .hero h1 {
+            font-size: 40px;
+        }
+
+    .section h2 {
+        font-size: 32px;
+    }
+
+    /* na telefonu nema potrebe da span-uje ceo red — ali i dalje ostaje centrirano */
+    .member.center {
+        grid-column: auto;
+        max-width: 100%;
+        justify-self: stretch;
+    }
+    /* HERO (PROFI VERZIJA) */
+    .hero {
+        padding: 160px 24px 120px; /* vise vazduha gore i dole */
+        max-width: 1300px;
+        margin: auto;
+        text-align: center;
+        position: relative;
+    }
+
+    .hero-inner {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    /* Glow iza naslova */
+    .hero h1 {
+        font-size: 72px;
+        margin-bottom: 18px;
+        line-height: 1.05;
+        background: linear-gradient(90deg,#ffffff,#d1fae5);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+        color: #94a3b8;
+        font-size: 18px;
+        margin-bottom: 36px;
+        line-height: 1.6;
+    }
+
+    /* Dugmad */
+    .hero-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 18px;
+        flex-wrap: wrap;
+        margin-bottom: 32px;
+    }
+
+    /* Badge spacing bolji */
+    .hero-badges {
+        display: flex;
+        justify-content: center;
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+
+    /* Elegantna animirana linija */
+    .scroll-line {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 2px;
+        height: 60px;
+        background: linear-gradient(to bottom, rgba(52,211,153,0), rgba(52,211,153,.6));
+        animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+        0% {
+            opacity: .4;
+            transform: translateX(-50%) scaleY(.9);
+        }
+
+        50% {
+            opacity: 1;
+            transform: translateX(-50%) scaleY(1.1);
+        }
+
+        100% {
+            opacity: .4;
+            transform: translateX(-50%) scaleY(.9);
+        }
+    }
+}
+
+    </style>
+</head>
+<body>
 
     <!-- NAVBAR -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-zinc-900/80 backdrop-blur border-b border-teal/50">
-        <div class="max-w-7xl mx-auto px-6 py-3 flex items-center">
-            <div class="font-extrabold tracking-wide text-lg text-teal-400">Temple of the Green Sage</div>
-            <div class="flex items-center gap-6 ml-auto">
-                <a href="#home" class="hover:text-teal-300 transition">Početna</a>
-                <a href="#download">Igraj
-                </a>
-                <a href="#about" class="hover:text-teal-300 transition">O igri</a>
-                <a href="#features" class="hover:text-teal-300 transition">Feature-i</a>
-                <a href="#faq" class="hover:text-teal-300 transition">FAQ</a>
-                <a href="#team" class="hover:text-teal-300 transition">Tim</a>
-                <a href="#contact" class="hover:text-teal-300 transition">Kontakt</a>
-                <button id="langBtn" class="ml-4 px-3 py-1 rounded bg-teal-400 text-black font-bold hover:bg-teal-300 transition">EN</button>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-text">Temple of The Green Sage</div>
+
+            <button class="burger" id="burger" aria-label="Otvori meni" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+
+            <div class="nav-links" id="navLinks">
+                <a href="#home">Početna</a>
+                <a href="#about">O igri</a>
+                <a href="#features">Feature-i</a>
+                <a href="#roadmap">Faze</a>
+                <a href="#play">Igraj</a>
+                <a href="#faq">FAQ</a>
+                <a href="#team">Tim</a>
             </div>
         </div>
     </nav>
 
-    <!-- HERO -->
-    <section id="home" class="min-h-screen flex items-center justify-center text-center pt-24 relative overflow-hidden">
-        <div class="absolute inset-0 -z-10 opacity-40 bg-[radial-gradient(ellipse_at_top,rgba(16,185,129,.35),transparent_60%)]"></div>
-        <div class="max-w-4xl px-4 reveal">
-            <h1 class="text-5xl md:text-7xl font-extrabold mb-6">Temple of the Green Sage</h1>
-            <p class="text-xl text-teal mb-8">
-                Beskonačna arena u kojoj preživljavaš talase neprijatelja kao žaba čarobnjak.
+    <section id="home" class="hero reveal">
+        <div class="hero-inner">
+            <h1>Temple of The Green Sage</h1>
+            <p class="hero-sub">
+                Arena u kojoj preživljavaš talase neprijatelja kao žaba čarobnjak.
             </p>
-            <div class="flex gap-4 justify-center">
-                <a href="#about" class="inline-block px-6 py-3 rounded-xl bg-teal-400 text-black font-bold hover:bg-teal-300 transition">Saznaj više</a>
-                <a href="#features" class="inline-block px-6 py-3 rounded-xl border border-teal/40 hover:border-teal-300">Pogledaj feature-e</a>
-            </div>
-        </div>
-    </section>
 
-    <!-- DOWNLOAD -->
-    <section id="download" class="max-w-7xl mx-auto px-6 py-28 reveal">
-        <h2 class="text-4xl font-bold mb-12 text-center">Igraj sada</h2>
-
-        <div class="grid md:grid-cols-2 gap-12">
-
-            <!-- LEFT: DOWNLOAD -->
-            <div class="p-8 rounded-2xl bg-dark border border-teal/30 card-hover text-center">
-                <h3 class="text-2xl font-semibold mb-4">Temple of the Green Sage</h3>
-                <p class="text-teal mb-6">Najnovija verzija: <b>v1.0</b></p>
-
-                <!-- PROMENI LINK KAD BUDEŠ IMAO FAJL -->
-                <a href="https://play.unity.com/en/games/8f923c8a-94cb-479e-887f-96fbff9bc2f9/igrica" download
-                   class="inline-block px-8 py-4 rounded-xl bg-teal-400 text-black font-bold text-lg hover:bg-teal-300 transition">
-                    ⬇ Igraj u Browseru
-                </a>
-            </div>
-
-            <!-- RIGHT: CHANGELOG -->
-            <div class="p-8 rounded-2xl bg-dark border border-teal/30">
-                <h3 class="text-2xl font-semibold mb-4">Šta je novo? (Changelog)</h3>
-
-                <div class="space-y-6 text-teal">
-
-                    <div>
-                        <h4 class="font-semibold text-lg">v1.0 – Latest</h4>
-                        <ul class="list-disc list-inside">
-                            <li>Dodat novi enemy tip</li>
-                            <li>Poboljšane animacije kretanja i pucanja</li>
-                            <li>Balansirani wavovi</li>
-                            <li>Ispravljeni bugovi</li>
-                        </ul>
-                    </div>
-
-                </div>
+            <div class="hero-buttons">
+                <a href="#about" class="btn">Saznaj više</a>
+                <a href="#play" class="btn outline soft">Igraj u browseru</a>
             </div>
 
         </div>
+
+        <!-- Elegantna animirana linija dole -->
+        <div class="scroll-line"></div>
     </section>
 
+    <!-- Elegantna animirana linija dole -->
+    <div class="scroll-line"></div>
+    </section>
 
-    <!-- ABOUT GAME -->
-    <section id="about" class="max-w-7xl mx-auto px-6 py-28 reveal">
-        <h2 class="text-4xl font-bold mb-8 text-center">O igri</h2>
-        <div class="grid md:grid-cols-2 gap-12">
-            <div class="space-y-4 text-teal">
-                <p>Temple of the Green Sage je beskonačna arena u jednoj sobi, sa dungeon + jungle temple atmosferom.</p>
-                <p>Cilj igre je da preživiš što više talasa neprijatelja. Kada umreš, sav napredak se briše i krećeš ispočetka.</p>
-                <p>Neprijatelji dolaze u wave-ovima, postaju jači i brojniji, a ti posle svakog wave-a biraš upgrade.</p>
-                <p>Svaki pokušaj je drugačiji: kombinacija prepreka, protivnika i upgrade-ova pravi novi izazov svaki put.</p>
+    <!-- ABOUT -->
+    <section id="about" class="section reveal">
+        <h2>O igri</h2>
+
+        <div class="two-col">
+            <div class="text-block">
+                <p>Temple of The Green Sage je arena u jednoj sobi sa dungeon + jungle temple atmosferom.</p>
+                <p>Cilj igre je da preživiš što više talasa neprijatelja. Kada umreš, sav napredak se briše.</p>
+                <p>Neprijatelji dolaze u wave-ovima, a posle svakog biraš upgrade.</p>
             </div>
-            <div class="bg-dark rounded-2xl p-8 border border-teal/30">
-                <h3 class="text-2xl font-semibold mb-4">Kako se igra</h3>
-                <ul class="list-disc list-inside space-y-2 text-teal">
-                    <li>Igrač se stvara u sredini arene</li>
-                    <li>Neprijatelji dolaze u talasima oko tebe</li>
-                    <li>Napad je automatski – ti se fokusiraš na kretanje i pozicioniranje</li>
-                    <li>Posle svakog wave-a biraš jedan upgrade</li>
+
+            <div class="card">
+                <h3>Kako se igra</h3>
+                <ul>
+                    <li>Stvaraš se u sredini arene</li>
+                    <li>Neprijatelji dolaze u talasima</li>
+                    <li>Napad je automatski</li>
+                    <li>Biraš upgrade posle svakog wave-a</li>
                     <li>Igra traje dok ne izgubiš sav HP</li>
                 </ul>
             </div>
         </div>
     </section>
 
-    <!-- FEATURES -->
-    <section id="features" class="bg-dark/50 py-28">
-        <div class="max-w-7xl mx-auto px-6 reveal">
-            <h2 class="text-4xl font-bold mb-12 text-center">Feature-i igre</h2>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="p-6 rounded-2xl bg-dark border border-teal/30 card-hover">
-                    <h3 class="font-semibold mb-2">Beskonačni gameplay</h3>
-                    <p class="text-light">Igra nema kraj – cilj je da oboriš svoj lični rekord.</p>
-                </div>
-                <div class="p-6 rounded-2xl bg-dark border border-teal/30 card-hover">
-                    <h3 class="font-semibold mb-2">Upgrade sistem</h3>
-                    <p class="text-light">Posle svakog talasa biraš kako da razviješ svog lika.</p>
-                </div>
-                <div class="p-6 rounded-2xl bg-dark border border-teal/30 card-hover">
-                    <h3 class="font-semibold mb-2">Razni neprijatelji</h3>
-                    <p class="text-light">Svaki wave donosi nove kombinacije protivnika i izazova.</p>
-                </div>
-                <div class="p-6 rounded-2xl bg-dark border border-teal/30 card-hover">
-                    <h3 class="font-semibold mb-2">2D pixel art stil</h3>
-                    <p class="text-light">Čist, čitljiv i moderan vizuelni stil sa kamerom odozgo.</p>
-                </div>
+    <!-- FEATURES (FULL WIDTH DARK) -->
+    <section id="features" class="section-wrap dark reveal">
+        <div class="section">
+            <h2>Feature-i igre</h2>
+            <div class="grid">
+                <div class="card">Beskonačni gameplay</div>
+                <div class="card">Upgrade sistem</div>
+                <div class="card">Razni neprijatelji</div>
+                <div class="card">pixel art stil</div>
             </div>
         </div>
     </section>
 
-    <!-- FAQ -->
-    <section id="faq" class="py-28">
-        <div class="max-w-7xl mx-auto px-6 reveal">
-            <h2 class="text-4xl font-bold mb-8 text-center">FAQ</h2>
-            <div class="space-y-4">
-                <div class="p-6 rounded-xl bg-dark border border-teal/30 card-hover">
-                    <h3 class="font-semibold mb-2">Da li igra ima kraj?</h3>
-                    <p class="text-teal">Ne. Igra traje beskonačno dok igrač ne izgubi sav HP.</p>
+    <!-- PLAY IN BROWSER -->
+    <section id="play" class="section-wrap dark reveal">
+        <div class="section">
+            <h2>Igraj u browseru</h2>
+
+            <div class="play-card">
+                <div>
+                    <h3>Klikni i zaigraj</h3>
+                    <p>
+                        Klikom na dugme Igraj u browseru otvara vam se stranica na kojoj mozete besplatno da igrate ovu igru.
+                    </p>
                 </div>
-                <div class="p-6 rounded-xl bg-dark border border-teal/30 card-hover">
-                    <h3 class="font-semibold mb-2">Kako funkcionišu upgrade-ovi?</h3>
-                    <p class="text-teal">Posle svakog završenog wave-a biraš jedan upgrade koji jača tvog lika.</p>
+
+                <div class="play-actions">
+                    <!-- ZAMENI href kada budeš imao pravi link -->
+                    <a class="btn" href="https://play.unity.com/en/games/8f923c8a-94cb-479e-887f-96fbff9bc2f9/temple-of-the-green-sage" target="_blank" rel="https://play.unity.com/en/games/8f923c8a-94cb-479e-887f-96fbff9bc2f9/igrica">Igraj u browseru</a>
+                    <a class="btn outline" href="#roadmap">Pogledaj faze</a>
                 </div>
-                <div class="p-6 rounded-xl bg-dark border border-teal/30 card-hover">
-                    <h3 class="font-semibold mb-2">Ko je glavni lik?</h3>
-                    <p class="text-teal">Glavni lik je žaba čarobnjak koji napada magičnim jezikom.</p>
-                </div>
+
+                <!-- OPCIONO: kada budeš imao embed link -->
+                <!--
+    <div class="play-embed">
+      <iframe src="https://play.unity.com/en/games/8f923c8a-94cb-479e-887f-96fbff9bc2f9/igrica" frameborder="0" allowfullscreen></iframe>
+    </div>
+    -->
             </div>
+        </div>
+    </section>
+
+    <!-- ROADMAP / FAZE -->
+    <section id="roadmap" class="section reveal">
+        <h2>Faze razvoja</h2>
+
+        <div class="roadmap">
+            <div class="phase done">
+                <div class="phase-top">
+                    <span class="phase-tag">URAĐENO</span>
+                    <span class="phase-date">2025</span>
+                </div>
+                <h3>Faza 1 — Core gameplay</h3>
+                <ul>
+                    <li>Osnovna arena</li>
+                    <li>Wave sistem</li>
+                    <li>Auto-attack napad</li>
+                    <li>HP sistem + poraz</li>
+                </ul>
+            </div>
+
+            <div class="phase wip">
+                <div class="phase-top">
+                    <span class="phase-tag">URAĐENO</span>
+                    <span class="phase-date">2026</span>
+                </div>
+                <h3>Faza 2 — Upgrade & balans</h3>
+                <ul>
+                    <li>Smanjen broj neprijatelja po waw-u(3->1)</li>
+                    <li>Upgrade nakon ubijanja bosa (damage, speed)</li>
+                    <li>Balans težine talasa</li>
+                    <li>Prepreke po podu arene</li>
+                </ul>
+            </div>
+
+            <div class="phase plan">
+                <div class="phase-top">
+                    <span class="phase-tag">U RADU</span>
+                    <span class="phase-date">2026</span>
+                </div>
+                <h3>Faza 3 — Neprijatelji & boss</h3>
+                <ul>
+                    <li>Više tipova neprijatelja</li>
+                    <li>Specijalni napadi i obrasci kretanja</li>
+                    <li>Mini-boss / Boss wave</li>
+                    <li>Nagrade i “rarity” loot</li>
+                    <li>Zvucni efekti</li>
+                </ul>
+            </div>
+
+            <div class="phase plan">
+                <div class="phase-top">
+                    <span class="phase-tag">PLANIRANO</span>
+                    <span class="phase-date">2026</span>
+                </div>
+                <h3>Faza 4 — Release priprema</h3>
+                <ul>
+                    <li>Optimizacija performansi</li>
+                    <li>Vise zamki</li>
+                    <li>Trailer + screenshotovi</li>
+                    <li>Novi neprijatelji</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- FAQ -->
+    <section id="faq" class="section reveal">
+        <h2>FAQ</h2>
+        <div class="faq">
+            <div class="card">Igra nema kraj – traje dok ne izgubiš sav HP.</div>
+            <div class="card">Upgrade biraš posle svakog wave-a.</div>
+            <div class="card">Glavni lik je žaba čarobnjak.</div>
         </div>
     </section>
 
     <!-- TEAM -->
-    <section id="team" class="max-w-7xl mx-auto px-6 py-28 reveal">
-        <h2 class="text-4xl font-bold mb-12 text-center">WWB Team</h2>
+    <section id="team" class="section reveal">
+        <h2>WWB Team</h2>
 
-        <div class="text-center mb-12">
-            <img src="logo za team.png" class="mx-auto w-48 mb-4" alt="WWB Team Logo">
-            <p class="text-teal">
-                <b>WWB Team</b> je osnovan <b>2025. godine</b> kako bi napravio igricu kao projekat iz programiranja.
+        <div class="team-about">
+            <img src="logo za team.png" />
+            <p>
+                <b>WWB Team</b> je osnovan <b>2025. godine</b> sa ciljem da napravi igricu kao projekat iz programiranja.
+                Frog Wizard Arena je naš prvi veliki timski projekat.
             </p>
         </div>
 
-        <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-            <div class="text-center card-hover">
-                
-                <h3 class="font-semibold">Valentina Ilić</h3>
-                <p class="text-sm text-light">Glavni programer, vođa tima</p>
-            </div>
+        <div class="team-grid">
+            <div class="member">Valentina Ilić<br><span>Lead programer, vođa tima</span></div>
+            <div class="member">Vuk Luković<br><span>Web programer, dizajn</span></div>
+            <div class="member">Aleksandar Budimkić<br><span>Lead dizajner</span></div>
+            <div class="member">Mateja Vasiljević<br><span>Marketing, web</span></div>
 
-            <div class="text-center card-hover">
-                
-                <h3 class="font-semibold">Vuk Luković</h3>
-                <p class="text-sm text-light">Web programer, pomoćni dizajner</p>
-            </div>
-
-            <div class="text-center card-hover">
-                
-                <h3 class="font-semibold">Aleksandar Budimkić</h3>
-                <p class="text-sm text-light">Glavni dizajner za likove i mapu</p>
-            </div>
-
-            <div class="text-center card-hover">
-               
-                <h3 class="font-semibold">Mateja Vasiljević</h3>
-                <p class="text-sm text-light">Društvene mreže, pomoćni web programer</p>
-            </div>
-
-            <div class="text-center card-hover">
-                
-                <h3 class="font-semibold">Vukašin Vladović</h3>
-                <p class="text-sm text-light">Zadužen za zvukove u igrici</p>
-            </div>
+            <!-- OVO JE SADA CENTRIRANO I SIMETRICNO -->
+            <div class="member center">Vukašin Vladović<br><span>Zvuk</span></div>
         </div>
     </section>
 
-    <!-- CONTACT / SOCIAL -->
-    <section id="contact" class="bg-dark/50 py-28">
-        <div class="max-w-4xl mx-auto px-6 text-center reveal">
-            <h2 class="text-4xl font-bold mb-8">Kontakt & Društvene mreže</h2>
-
-            <p class="text-teal mb-12">
-                Zapratite nas ili nas kontaktirajte putem društvenih mreža:
-            </p>
-
-            <div class="grid sm:grid-cols-3 gap-8">
-
-                <!-- Gmail -->
-                <div class="p-6 rounded-2xl bg-dark border border-teal/30 card-hover">
-                    <h3 class="text-xl font-semibold mb-2">📧 Gmail</h3>
-                    <p class="text-light break-all">wwb.team.a2@gmail.com</p>
-                </div>
-
-                <!-- Instagram -->
-                <div class="p-6 rounded-2xl bg-dark border border-teal/30 card-hover">
-                    <h3 class="text-xl font-semibold mb-2">📸 Instagram</h3>
-                    <p class="text-light">@wwbtsm</p>
-                </div>
-
-                <!-- TikTok -->
-                <div class="p-6 rounded-2xl bg-dark border border-teal/30 card-hover">
-                    <h3 class="text-xl font-semibold mb-2">🎵 TikTok</h3>
-                    <p class="text-light">@wwbtsm</p>
-                </div>
-                <!-- YT -->
-                <div class="p-6 rounded-2xl bg-dark border border-teal/30 card-hover">
-                    <h3 class="text-xl font-semibold mb-2">📷 YouTube</h3>
-                    <p class="text-light">
-                        WWB
-                    </p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="border-t border-teal/30 py-6 text-center text-teal">
-        © 2026 WWB Team — Temple of the Green Sage
+    <footer>
+        © 2026 WWB Team — Frog Wizard Arena
     </footer>
 
     <script>
-        // REVEAL ANIMATION
+        // Reveal animation
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) { entry.target.classList.add('show'); }
+                if (entry.isIntersecting) entry.target.classList.add("show");
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+        // Burger menu
+        const burger = document.getElementById("burger");
+        const navLinks = document.getElementById("navLinks");
+
+        burger.addEventListener("click", () => {
+            const opened = navLinks.classList.toggle("open");
+            burger.classList.toggle("open", opened);
+            burger.setAttribute("aria-expanded", opened ? "true" : "false");
+        });
+
+        // Close menu on link click (mobile)
+        navLinks.querySelectorAll("a").forEach(a => {
+            a.addEventListener("click", () => {
+                navLinks.classList.remove("open");
+                burger.classList.remove("open");
+                burger.setAttribute("aria-expanded", "false");
             });
         });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // LANGUAGE SWITCH (FULL)
-        const langBtn = document.getElementById('langBtn');
-        let english = false;
-
-        langBtn.addEventListener('click', () => {
-            english = !english;
-            langBtn.textContent = english ? "SR" : "EN";
-
-            // NAVBAR
-            const navLinks = document.querySelectorAll("nav a");
-            if (english) {
-                navLinks[0].textContent = "Home";
-                navLinks[1].textContent = "About";
-                navLinks[2].textContent = "Features";
-                navLinks[3].textContent = "FAQ";
-                navLinks[4].textContent = "Team";
-                navLinks[5].textContent = "Contact";
-            } else {
-                navLinks[0].textContent = "Početna";
-                navLinks[1].textContent = "O igri";
-                navLinks[2].textContent = "Feature-i";
-                navLinks[3].textContent = "FAQ";
-                navLinks[4].textContent = "Tim";
-                navLinks[5].textContent = "Kontakt";
-            }
-
-            // HERO
-            document.querySelector('#home p').textContent = english
-                ? 'Endless arena where you survive waves of enemies as a frog wizard.'
-                : 'Beskonačna arena u kojoj preživljavaš talase neprijatelja kao žaba čarobnjak.';
-            document.querySelectorAll('#home a')[0].textContent = english ? 'Learn More' : 'Saznaj više';
-            document.querySelectorAll('#home a')[1].textContent = english ? 'See Features' : 'Pogledaj feature-e';
-
-            // ABOUT
-            document.querySelector('#about h2').textContent = english ? 'About the Game' : 'O igri';
-
-            // FEATURES
-            document.querySelector('#features h2').textContent = english ? 'Game Features' : 'Feature-i igre';
-
-            // FAQ
-            document.querySelector('#faq h2').textContent = english ? 'FAQ' : 'FAQ';
-
-            const faq = document.querySelectorAll("#faq h3");
-            const faqP = document.querySelectorAll("#faq p");
-
-            if (english) {
-                faq[0].textContent = "Does the game have an ending?";
-                faqP[0].textContent = "No. The game is endless until the player loses all HP.";
-                faq[1].textContent = "How do upgrades work?";
-                faqP[1].textContent = "After each wave you choose one upgrade.";
-                faq[2].textContent = "Who is the main character?";
-                faqP[2].textContent = "The main character is a frog wizard who attacks with a magical tongue.";
-            } else {
-                faq[0].textContent = "Da li igra ima kraj?";
-                faqP[0].textContent = "Ne. Igra traje beskonačno dok igrač ne izgubi sav HP.";
-                faq[1].textContent = "Kako funkcionišu upgrade-ovi?";
-                faqP[1].textContent = "Posle svakog završenog wave-a biraš jedan upgrade koji jača tvog lika.";
-                faq[2].textContent = "Ko je glavni lik?";
-                faqP[2].textContent = "Glavni lik je žaba čarobnjak koji napada magičnim jezikom.";
-            }
-
-            // TEAM
-            document.querySelector("#team h2").textContent = english ? "WWB Team" : "WWB Team";
-
-            // CONTACT
-            document.querySelector("#contact h2").textContent = english ? "Contact & Social Media" : "Kontakt & Društvene mreže";
-        });
-
     </script>
 
 </body>
 </html>
-
